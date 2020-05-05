@@ -1,0 +1,12 @@
+package com.blastvibrations.jpa.dao.queries.blastreport;
+
+public class BlastReportQueries {
+
+	public static final String BLASTREPORT_FIND_LIST_BLAST_REPORT_BY_USERID = "ExBlastReport.findListBlastReportByUserId";
+	public static final String BLASTREPORT_FIND_LIST_BLAST_REPORT_TEMPLATE_BY_CLIENT_ID = "ExBlastReport.findListBlastReportTemplate";
+	public static final String FIND_BLAST_REPORTS_FOR_USER_BETWEEN_START_AND_END_DATE = "ExBlastReport.findBlastReportsForUserBetweenStartAndEndDate";
+	public static final String FIND_BLAST_REPORTS_NOT_DELETED = "ExBlastReport.findBlastReportsNotDeleted";
+	public static final String FIND_BLAST_REPORTS_BY_BLASTIDS_LIST_NOT_DELETED = "ExBlastReport.findBlastReportsByBlastIdsListNotDeleted";
+	public static final String FIND_BLAST_REPORTS_NOTEMPLATE_BY_CLIENTIDS_LIST_BETWEEN_START_AND_END_DATE = "ExBlastReport.findBlastReportsNoTemplateByClientIdsListNotDeletedByStartDate";
+	public static final String FIND_BLAST_REPORTS_NOTEMPLATE_BY_CLIENTIDS_LIST_NOT_DELETED = "ExBlastReport.findBlastReportsNoTemplateByClientIdsListNotDeletedNoDate";
+}
