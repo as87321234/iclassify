@@ -38,6 +38,8 @@ public class IClassifyEnvironment {
 
 	private static Manifest manifest = null;
 
+	String dcsDirectory;
+
 	public IClassifyEnvironment() {
 		super();
 
