@@ -1,7 +1,6 @@
 package com.pointtomap.iclassify.jpa.orm;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -126,19 +125,7 @@ public class IcUser extends IcEntity implements Serializable {
 	}
 
 	public void setHashedPasswd(String hashedPasswd) {
-		try {
-			this.hashedPasswd = HashUtil.sha256(hashedPasswd);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			RuntimeException ne = new RuntimeException("Failed hashig the password");
-			ne.setStackTrace(e.getStackTrace());
-
-			throw ne;
-
-		}
-
+		this.hashedPasswd = HashUtil.sha256(hashedPasswd);
 	}
 
 	public void setUserGroup(EnumUserGroup userGroup) {
