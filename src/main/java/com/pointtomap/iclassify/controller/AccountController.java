@@ -35,13 +35,13 @@ import com.pointtomap.iclassify.jpa.orm.IcUser;
 
 @Controller
 @Transactional
-public class ManagementController extends IClassifyController {
+public class AccountController extends IClassifyController {
 
 	private static final String ACCOUNT_LIST_VIEW = "thymeleaf/account/list.html";
 	private static final String ACCOUNT_LIST_REQUEST = "/account/list";
 	private static final String USER_LIST = "userList";
 
-	Logger log = LoggerFactory.getLogger(ManagementController.class);
+	Logger log = LoggerFactory.getLogger(AccountController.class);
 
 	@Autowired
 	IClassifyEnvironment env;
@@ -53,7 +53,7 @@ public class ManagementController extends IClassifyController {
 	 * Default constructor
 	 * 
 	 */
-	public ManagementController() {
+	public AccountController() {
 		super();
 	}
 
