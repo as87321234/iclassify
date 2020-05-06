@@ -1,7 +1,6 @@
 package com.pointtomap.iclassify.controller;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +33,7 @@ import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
+import com.pointtomap.iclassify.jpa.util.HashUtil;
 
 /**
  * <h1>NistPacketController</h1>
@@ -142,12 +143,22 @@ public class MainController extends IClassifyController {
 
 	@RequestMapping(value = DRAG_AND_DROP_FILE_UPLOADING, method = RequestMethod.POST)
 	public @ResponseBody ModelAndView dragAndDropFileUploading(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
-			@ModelAttribute("requestQuery") String requestQuery, ModelAndView model)
-			throws IllegalStateException, IOException, NoSuchAlgorithmException {
+			@ModelAttribute("requestQuery") String requestQuery, ModelAndView model) throws Exception {
 
 		try {
 
-			List<Object> fileList = getMultipleFiles(uploadForm);
+			List<byte[]> fileList = getMultipleFiles(uploadForm);
+
+			for (byte[] fileByteArray : fileList) {
+
+				String filenameHash = HashUtil.sha256(fileByteArray) + ".dcs";
+				log.debug(String.format("Loading file: %s", filenameHash));
+
+				File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
+
+				FileCopyUtils.copy(fileByteArray, f);
+
+			}
 
 			model = new ModelAndView(UPLOAD_DOCUMENT_VIEW, new HashMap<String, Object>());
 
@@ -157,6 +168,7 @@ public class MainController extends IClassifyController {
 		} catch (Exception e) {
 
 			model.getModel().put(IClassifyConstant.RESPONSE_ERROR, this.exceptionFormatter(e));
+			throw e;
 
 		}
 
@@ -164,17 +176,19 @@ public class MainController extends IClassifyController {
 
 	}
 
-	private List<Object> getMultipleFiles(FileUploadForm uploadForm) throws Exception {
+	private List<byte[]> getMultipleFiles(FileUploadForm uploadForm) throws Exception {
 
 		List<MultipartFile> multipartFileList = uploadForm.getFileselect();
 
-		ArrayList<Object> fileList = new ArrayList<Object>();
+		List<byte[]> fileList = new ArrayList<byte[]>();
 
 		if (null != multipartFileList && multipartFileList.size() > 0) {
 
 			for (MultipartFile multipartFile : multipartFileList) {
 
 				String fileName = multipartFile.getOriginalFilename();
+
+				log.debug(String.format("Processing file %s", fileName));
 
 				if (!"".equalsIgnoreCase(fileName)) {
 
