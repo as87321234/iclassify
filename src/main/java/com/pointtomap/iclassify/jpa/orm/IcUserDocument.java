@@ -25,14 +25,14 @@ import lombok.ToString;
  *
  */
 @Entity
-@Table(name = "ic_user_image")
+@Table(name = "ic_user_document")
 @EnableJpaRepositories
 @NamedQueries({
 
-		@NamedQuery(name = IcUserImage.FIND_ALL, query = "SELECT e FROM IcUserImage e") })
+		@NamedQuery(name = IcUserDocument.FIND_ALL, query = "SELECT e FROM IcUserImage e") })
 
 @ToString
-public class IcUserImage extends IcEntity implements Serializable {
+public class IcUserDocument extends IcEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_ALL = "IcUserImage.findAll";
@@ -40,54 +40,54 @@ public class IcUserImage extends IcEntity implements Serializable {
 	@Override
 	public void clearKey() {
 		super.clearKey();
-		this.userImageId = null;
+		this.userDocumentId = null;
 
 	}
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "userImageId", updatable = false, nullable = false)
-	private UUID userImageId;
+	@Column(name = "userDocumentId", updatable = false, nullable = false)
+	private UUID userDocumentId;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private IcUser icUser;
 
 	@ManyToOne
-	@JoinColumn(name = "image_id")
-	private IcImage icImage;
+	@JoinColumn(name = "document_id")
+	private IcDocument icDocument;
 
-	public IcUserImage() {
+	public IcUserDocument() {
 	}
 
-	public IcUserImage(final IcUserImage icUser) {
+	public IcUserDocument(final IcUserDocument icUser) {
 
 		ReflectionUtils.cloneSkipNull(icUser, this, null);
 	}
 
-	public UUID getUserImageId() {
-		return userImageId;
+	public UUID getUserDocumentId() {
+		return userDocumentId;
+	}
+
+	public void setUserDocumentId(UUID userDocumentId) {
+		this.userDocumentId = userDocumentId;
 	}
 
 	public IcUser getIcUser() {
 		return icUser;
 	}
 
-	public IcImage getIcImage() {
-		return icImage;
-	}
-
-	public void setUserImageId(UUID userImageId) {
-		this.userImageId = userImageId;
-	}
-
 	public void setIcUser(IcUser icUser) {
 		this.icUser = icUser;
 	}
 
-	public void setIcImage(IcImage icImage) {
-		this.icImage = icImage;
+	public IcDocument getIcDocument() {
+		return icDocument;
+	}
+
+	public void setIcDocument(IcDocument icDocument) {
+		this.icDocument = icDocument;
 	}
 
 }

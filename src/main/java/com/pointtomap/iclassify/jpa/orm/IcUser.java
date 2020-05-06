@@ -16,7 +16,6 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.pointtomap.iclassify.jpa.util.HashUtil;
 import com.pointtomap.iclassify.jpa.util.ReflectionUtils;
 
 import lombok.ToString;
@@ -74,7 +73,7 @@ public class IcUser extends IcEntity implements Serializable {
 	private EnumUserGroup userGroup = EnumUserGroup.READ_ONLY;
 
 	@OneToMany(mappedBy = "icUser")
-	Set<IcUserImage> icUserImages;
+	Set<IcUserDocument> icUserDocuments;
 
 	public IcUser() {
 	}
@@ -88,28 +87,28 @@ public class IcUser extends IcEntity implements Serializable {
 		return userId;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
 	public void setUserId(UUID userId) {
 		this.userId = userId;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 	public void setUsername(String username) {
@@ -120,16 +119,24 @@ public class IcUser extends IcEntity implements Serializable {
 		return hashedPasswd;
 	}
 
+	public void setHashedPasswd(String hashedPasswd) {
+		this.hashedPasswd = hashedPasswd;
+	}
+
 	public EnumUserGroup getUserGroup() {
 		return userGroup;
 	}
 
-	public void setHashedPasswd(String hashedPasswd) {
-		this.hashedPasswd = HashUtil.sha256(hashedPasswd);
-	}
-
 	public void setUserGroup(EnumUserGroup userGroup) {
 		this.userGroup = userGroup;
+	}
+
+	public Set<IcUserDocument> getIcUserDocuments() {
+		return icUserDocuments;
+	}
+
+	public void setIcUserDocuments(Set<IcUserDocument> icUserDocuments) {
+		this.icUserDocuments = icUserDocuments;
 	}
 
 }

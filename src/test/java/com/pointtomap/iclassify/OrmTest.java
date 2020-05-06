@@ -10,9 +10,9 @@ import com.pointtomap.iclassify.jpa.dao.IcImageDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserImageDao;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
-import com.pointtomap.iclassify.jpa.orm.IcImage;
+import com.pointtomap.iclassify.jpa.orm.IcDocument;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
-import com.pointtomap.iclassify.jpa.orm.IcUserImage;
+import com.pointtomap.iclassify.jpa.orm.IcUserDocument;
 
 @SpringBootTest
 @Transactional()
@@ -50,7 +50,7 @@ class OrmTest {
 	@Test
 	public void createIcImage() {
 
-		IcImage aImage = new IcImage();
+		IcDocument aImage = new IcDocument();
 		aImage.setDescription("My first image");
 		aImage.setImageSha1("test");
 		aImage.setEnabled(true);
@@ -64,13 +64,13 @@ class OrmTest {
 
 		IcUser aUser = icUserDao.findUserByUsername("sb87321234");
 
-		IcImage aImage = new IcImage();
+		IcDocument aImage = new IcDocument();
 		aImage.setDescription("My first image");
 		aImage.setImageSha1("test");
 		aImage.setEnabled(true);
 		aImage = icImageDao.persist(aImage);
 
-		IcUserImage icUserImage = new IcUserImage();
+		IcUserDocument icUserImage = new IcUserDocument();
 		icUserImage.setIcUser(aUser);
 		icUserImage.setIcImage(aImage);
 

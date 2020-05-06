@@ -4,9 +4,9 @@
     <!-- Define persistence unit -->
     <persistence-unit name="default">
     
-    <class>com.pointtomap.iclassify.jpa.orm.IcUserImage</class>
+    <class>com.pointtomap.iclassify.jpa.orm.IcUserDocument</class>
     <class>com.pointtomap.iclassify.jpa.orm.IcUser</class>
-    <class>com.pointtomap.iclassify.jpa.orm.IcImage</class>
+    <class>com.pointtomap.iclassify.jpa.orm.IcDocument</class>
     
     </persistence-unit>
 </persistence>	

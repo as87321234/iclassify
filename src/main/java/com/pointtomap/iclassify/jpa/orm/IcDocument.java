@@ -25,16 +25,16 @@ import lombok.ToString;
  *
  */
 @Entity
-@Table(name = "ic_image")
+@Table(name = "ic_document")
 @EnableJpaRepositories
 @NamedQueries({
 
-		@NamedQuery(name = IcImage.FIND_ALL, query = "SELECT e FROM IcImage e")
+		@NamedQuery(name = IcDocument.FIND_ALL, query = "SELECT e FROM IcImage e")
 
 })
 
 @ToString
-public class IcImage extends IcEntity implements Serializable {
+public class IcDocument extends IcEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_ALL = "IcImage.findAll";
@@ -42,72 +42,72 @@ public class IcImage extends IcEntity implements Serializable {
 	@Override
 	public void clearKey() {
 		super.clearKey();
-		this.imageId = null;
+		this.documentId = null;
 
 	}
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "image_id", updatable = false, nullable = false)
-	private UUID imageId;
+	@Column(name = "document_id", updatable = false, nullable = false)
+	private UUID documentId;
 
 	@Column(name = "description")
 	private String description;
 
 	private boolean enabled = true;
 
-	private String imageSha1;
+	private String documentSha1;
 
-	@OneToMany(mappedBy = "icImage")
-	Set<IcUserImage> icUserImages;
+	@OneToMany(mappedBy = "icDocument")
+	Set<IcUserDocument> icUserDocuments;
 
-	public IcImage() {
+	public IcDocument() {
 	}
 
-	public IcImage(final IcImage icImage) {
+	public IcDocument(final IcDocument icImage) {
 
 		ReflectionUtils.cloneSkipNull(icImage, this, null);
 	}
 
-	public UUID getImageId() {
-		return imageId;
+	public UUID getDocumentId() {
+		return documentId;
+	}
+
+	public void setDocumentId(UUID documentId) {
+		this.documentId = documentId;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public String getImageSha1() {
-		return imageSha1;
-	}
-
-	public Set<IcUserImage> getIcUserImages() {
-		return icUserImages;
-	}
-
-	public void setImageId(UUID imageId) {
-		this.imageId = imageId;
-	}
-
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
-	public void setImageSha1(String imageSha1) {
-		this.imageSha1 = imageSha1;
+	public String getDocumentSha1() {
+		return documentSha1;
 	}
 
-	public void setIcUserImages(Set<IcUserImage> icUserImages) {
-		this.icUserImages = icUserImages;
+	public void setDocumentSha1(String documentSha1) {
+		this.documentSha1 = documentSha1;
+	}
+
+	public Set<IcUserDocument> getIcUserDocuments() {
+		return icUserDocuments;
+	}
+
+	public void setIcUserDocuments(Set<IcUserDocument> icUserDocuments) {
+		this.icUserDocuments = icUserDocuments;
 	}
 
 }
