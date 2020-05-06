@@ -155,7 +155,6 @@ public class MainController extends IClassifyController {
 				log.debug(String.format("Loading file: %s", filenameHash));
 
 				File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
-
 				FileCopyUtils.copy(fileByteArray, f);
 
 			}
