@@ -26,6 +26,11 @@ public class IClassifyConfig implements WebMvcConfigurer {
 		registry.addInterceptor(perfTestHandlerInterceptor);
 	}
 
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+	}
+
 	@Bean
 	public ISpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
