@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head th:replace="fragments/base :: baseHead(~{::title}, ~{::link})">
 <meta charset="ISO-8859-1" />
 
 <link href="/css/styles.css" rel="stylesheet" />
@@ -15,21 +15,6 @@
 		<div th:replace="fragments/header :: header"></div>
 
 		<div class="header">
-
-			<table class="blueTable">
-				<thead>
-					<tr>
-						<th style="width: 100%;" align="center" colspan="2">Manage
-							Accounts</th>
-					</tr>
-				</thead>
-
-				<tr align="center">
-					<td><a href="/index" target="nistpack">Index</a></td>
-				</tr>
-
-			</table>
-
 
 			<table class="blueTable" style="border: 1px">
 				<thead>
@@ -59,7 +44,6 @@
 
 
 		</div>
-
 
 
 		<div th:replace="fragments/footer :: footer"></div>
