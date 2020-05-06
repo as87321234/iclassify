@@ -57,17 +57,17 @@ import com.pointtomap.iclassify.jpa.orm.IcUser;
 @Transactional
 public class MainController extends IClassifyController {
 
-	private static final String INDEX_VIEW = "thymeleaf/index.html";
+	private static final String INDEX_VIEW = "/thymeleaf/index.html";
 	public static final String INDEX_REQUEST = "/index";
 
-	private static final String UPLOAD_DOCUMENT_VIEW = "thymeleaf/uploadDocument.html";
-	private static final String UPLOAD_DOCUMENT_REQUEST = "/uploadDocument";
+	private static final String UPLOAD_DOCUMENT_VIEW = "/thymeleaf/main/uploadDocument.html";
+	private static final String UPLOAD_DOCUMENT_REQUEST = "/main/uploadDocument";
 
-	private static final String AUTHENTICATE_VIEW = "thymeleaf/authenticate.html";
-	public static final String AUTHENTICATE_REQUEST = "/authenticate";
-	private static final String AUTHENTICATE_VERIFY_REQUEST = "/authenticate/verify";
+	private static final String AUTHENTICATE_VIEW = "/thymeleaf/main/authenticate.html";
+	public static final String AUTHENTICATE_REQUEST = "/main/authenticate";
+	private static final String AUTHENTICATE_VERIFY_REQUEST = "/main/authenticate/verify";
 
-	private static final String DRAG_AND_DROP_FILE_UPLOADING = "/dragAndDropFileUploading";
+	private static final String DRAG_AND_DROP_FILE_UPLOADING = "/main/dragAndDropFileUploading";
 
 	Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -134,8 +134,10 @@ public class MainController extends IClassifyController {
 
 	@RequestMapping(UPLOAD_DOCUMENT_REQUEST)
 	@ResponseBody
-	public String uploadDocument(Locale locale, ModelMap model) {
-		return UPLOAD_DOCUMENT_VIEW;
+	public ModelAndView uploadDocument(Locale locale, ModelMap model) {
+
+		return new ModelAndView(UPLOAD_DOCUMENT_VIEW, model);
+
 	}
 
 	@RequestMapping(value = DRAG_AND_DROP_FILE_UPLOADING, method = RequestMethod.POST)
