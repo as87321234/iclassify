@@ -44,7 +44,6 @@ public class IClassifyEnvironment {
 		super();
 
 		try {
-			log.debug("Loading /META-INF/MANIFEST.MF");
 			ClassPathResource clpr = new ClassPathResource("/META-INF/MANIFEST.MF");
 			IClassifyEnvironment.manifest = new Manifest(clpr.getInputStream());
 		} catch (Exception e) {
@@ -70,8 +69,6 @@ public class IClassifyEnvironment {
 
 			throw new Exception(String.format("Fetching missing attribute %s from manifest.mf", attrKey));
 		}
-
-		log.debug(String.format("MANIFEST ATTRIBUTE: %s=%s", attrKey, attr));
 
 		return attr;
 	}
