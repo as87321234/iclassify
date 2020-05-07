@@ -22,4 +22,6 @@ public interface IcDocumentDao {
 
 	public IcDocument persist(final IcDocument IcDocumentId);
 
+	public IcDocument findByDocumentSha1(String filenameHash);
+
 }

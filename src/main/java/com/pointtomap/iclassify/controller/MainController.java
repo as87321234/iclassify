@@ -159,14 +159,24 @@ public class MainController extends IClassifyController {
 				String filenameHash = HashUtil.sha256(fileByteArray) + ".dcs";
 				log.debug(String.format("Loading file: %s", filenameHash));
 
-				File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
-				FileCopyUtils.copy(fileByteArray, f);
+				// Check if file already exists
 
-				IcDocument aDocument = new IcDocument();
-				aDocument.setDocumentSha1(filenameHash);
-				aDocument.setDescription("");
+				boolean isDocumentNotExist = icDocumentDao.findByDocumentSha1(filenameHash) == null ? true : false;
 
-				icDocumentDao.persist(aDocument);
+				if (isDocumentNotExist) {
+
+					File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
+					FileCopyUtils.copy(fileByteArray, f);
+
+					IcDocument aDocument = new IcDocument();
+					aDocument.setDocumentSha1(filenameHash);
+					aDocument.setDescription("");
+
+					icDocumentDao.persist(aDocument);
+				} else {
+					log.debug(String.format("File %s already exist", filenameHash));
+				}
+
 			}
 
 			model = new ModelAndView(UPLOAD_DOCUMENT_VIEW, new HashMap<String, Object>());
