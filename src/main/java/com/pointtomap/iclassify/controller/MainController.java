@@ -72,6 +72,7 @@ public class MainController extends IClassifyController {
 	private static final String AUTHENTICATE_VERIFY_REQUEST = "/main/authenticate/verify";
 
 	private static final String DRAG_AND_DROP_FILE_UPLOADING = "/main/dragAndDropFileUploading";
+	private static final String LOGOUT_LOGIN_REQUEST = "/main/loginLogout";
 
 	Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -127,11 +128,16 @@ public class MainController extends IClassifyController {
 		return AUTHENTICATE_VIEW;
 	}
 
+	@GetMapping(value = LOGOUT_LOGIN_REQUEST)
+	public String logoutLogin(Locale locale, ModelMap model) {
+		return logout(locale, model);
+	}
+
 	@RequestMapping(value = AUTHENTICATE_VERIFY_REQUEST, method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView authenticateVerify(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("mainControllerForm") MainControllerForm mainControllerForm,
-			@ModelAttribute("requestQuery") String requestQuery, ModelAndView model) {
+			@ModelAttribute("requestQuery") String requestQuery, ModelMap model) {
 
 		// Authenticate user
 		boolean isCredential = icUserDao.checkCredential(mainControllerForm.getUsername(),
@@ -146,12 +152,12 @@ public class MainController extends IClassifyController {
 
 		} else {
 
-			model.getModel().put(ERROR_MSG, "Invalid username or password.");
-			return new ModelAndView("redirect:" + INDEX_REQUEST, model.getModel());
+			model.put(ERROR_MSG, "Invalid username or password.");
+			return new ModelAndView(AUTHENTICATE_VIEW, model);
 
 		}
 
-		return new ModelAndView("redirect:" + INDEX_REQUEST, model.getModel());
+		return new ModelAndView("redirect:" + INDEX_REQUEST, model);
 
 	}
 
