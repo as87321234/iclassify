@@ -30,8 +30,10 @@ import com.pointtomap.iclassify.IClassifyEnvironment;
 import com.pointtomap.iclassify.IClasssifyServerSessionHandler;
 import com.pointtomap.iclassify.form.FileUploadForm;
 import com.pointtomap.iclassify.form.MainControllerForm;
+import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
+import com.pointtomap.iclassify.jpa.orm.IcDocument;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 import com.pointtomap.iclassify.jpa.util.HashUtil;
 
@@ -77,6 +79,9 @@ public class MainController extends IClassifyController {
 
 	@Autowired
 	IcUserDao icUserDao;
+
+	@Autowired
+	IcDocumentDao icDocumentDao;
 
 	/**
 	 * Default constructor
@@ -157,6 +162,11 @@ public class MainController extends IClassifyController {
 				File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
 				FileCopyUtils.copy(fileByteArray, f);
 
+				IcDocument aDocument = new IcDocument();
+				aDocument.setDocumentSha1(filenameHash);
+				aDocument.setDescription("");
+
+				icDocumentDao.persist(aDocument);
 			}
 
 			model = new ModelAndView(UPLOAD_DOCUMENT_VIEW, new HashMap<String, Object>());
