@@ -2,11 +2,11 @@ package com.pointtomap.iclassify.jpa.dao;
 
 import java.util.List;
 
-import com.pointtomap.iclassify.jpa.orm.IcDocument;
+import com.pointtomap.iclassify.jpa.orm.IcUserDocument;
 
-public interface IcImageDao {
+public interface IcUserDocumentDao {
 
-	public List<IcDocument> findAll();
+	public List<IcUserDocument> findAll();
 
 //	public List<IcUser> tableSorting(List<IcUser> list, final SQLClause[] whereClauseList,
 //			final OrderByClause[] orderByList, final int maxResultSet);
@@ -14,12 +14,12 @@ public interface IcImageDao {
 //	public List<IcUser> tableSorting(List<IcUser> list, final SQLClause[] whereClauseList,
 //			final OrderByClause[] orderByList, final int maxResultSet, boolean includeDeletedRecords);
 
-	public IcDocument find(final Object IcImageId);
+	public IcUserDocument find(final Object IcUserDocumentId);
 
-	public void delete(final Object IcImageId);
+	public void delete(final Object IcUserDocumentId);
 
-	public void deleteLogical(final IcDocument IcImage);
+	public void deleteLogical(final IcUserDocument IcUserDocumentId);
 
-	public IcDocument persist(final IcDocument IcImage);
+	public IcUserDocument persist(final IcUserDocument IcUserDocumentId);
 
 }

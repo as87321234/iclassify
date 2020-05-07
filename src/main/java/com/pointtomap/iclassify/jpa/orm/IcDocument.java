@@ -29,7 +29,7 @@ import lombok.ToString;
 @EnableJpaRepositories
 @NamedQueries({
 
-		@NamedQuery(name = IcDocument.FIND_ALL, query = "SELECT e FROM IcImage e")
+		@NamedQuery(name = IcDocument.FIND_ALL, query = "SELECT e FROM IcDocument e")
 
 })
 

@@ -29,13 +29,13 @@ import lombok.ToString;
 @EnableJpaRepositories
 @NamedQueries({
 
-		@NamedQuery(name = IcUserDocument.FIND_ALL, query = "SELECT e FROM IcUserImage e") })
+		@NamedQuery(name = IcUserDocument.FIND_ALL, query = "SELECT e FROM IcUserDocument e") })
 
 @ToString
 public class IcUserDocument extends IcEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String FIND_ALL = "IcUserImage.findAll";
+	public static final String FIND_ALL = "IcUserDocument.findAll";
 
 	@Override
 	public void clearKey() {

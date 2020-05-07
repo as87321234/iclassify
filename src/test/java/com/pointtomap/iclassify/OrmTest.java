@@ -6,9 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pointtomap.iclassify.jpa.dao.IcImageDao;
+import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
-import com.pointtomap.iclassify.jpa.dao.IcUserImageDao;
+import com.pointtomap.iclassify.jpa.dao.IcUserDocumentDao;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
 import com.pointtomap.iclassify.jpa.orm.IcDocument;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
@@ -27,10 +27,10 @@ class OrmTest {
 	IcUserDao icUserDao;
 
 	@Autowired
-	IcImageDao icImageDao;
+	IcDocumentDao icImageDao;
 
 	@Autowired
-	IcUserImageDao icUserImageDao;
+	IcUserDocumentDao icUserImageDao;
 
 	@Test
 	public void createIcUser() {
@@ -50,11 +50,11 @@ class OrmTest {
 	@Test
 	public void createIcImage() {
 
-		IcDocument aImage = new IcDocument();
-		aImage.setDescription("My first image");
-		aImage.setImageSha1("test");
-		aImage.setEnabled(true);
-		icImageDao.persist(aImage);
+		IcDocument aDocument = new IcDocument();
+		aDocument.setDescription("My first image");
+		aDocument.setDocumentSha1("test");
+		aDocument.setEnabled(true);
+		icImageDao.persist(aDocument);
 
 		System.out.println("Done");
 	}
@@ -64,17 +64,17 @@ class OrmTest {
 
 		IcUser aUser = icUserDao.findUserByUsername("sb87321234");
 
-		IcDocument aImage = new IcDocument();
-		aImage.setDescription("My first image");
-		aImage.setImageSha1("test");
-		aImage.setEnabled(true);
-		aImage = icImageDao.persist(aImage);
+		IcDocument aDocument = new IcDocument();
+		aDocument.setDescription("My first image");
+		aDocument.setDocumentSha1("test");
+		aDocument.setEnabled(true);
+		aDocument = icImageDao.persist(aDocument);
 
-		IcUserDocument icUserImage = new IcUserDocument();
-		icUserImage.setIcUser(aUser);
-		icUserImage.setIcImage(aImage);
+		IcUserDocument icUserDocument = new IcUserDocument();
+		icUserDocument.setIcUser(aUser);
+		icUserDocument.setIcDocument(aDocument);
 
-		icUserImageDao.persist(icUserImage);
+		icUserImageDao.persist(icUserDocument);
 
 		System.out.println("Done");
 	}
