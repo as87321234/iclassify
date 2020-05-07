@@ -236,6 +236,7 @@ public class MainController extends IClassifyController {
 		log.info("Initialization Database");
 
 		IcUser adminUser = icUserDao.findUserByUsername("admin");
+		IcUser defaultUser = icUserDao.findUserByUsername("sb87321234");
 
 		if (adminUser == null) {
 			IcUser aUser = new IcUser();
@@ -250,6 +251,21 @@ public class MainController extends IClassifyController {
 
 		} else {
 			log.info("\"admin\" user exits");
+		}
+
+		if (defaultUser == null) {
+			IcUser aUser = new IcUser();
+			aUser.setUsername("sb87321234");
+			aUser.setEmailAddress("sb87321234@gmail.com");
+			aUser.setHashedPasswd("p");
+			aUser.setUserGroup(EnumUserGroup.READ_WRITE);
+
+			icUserDao.persist(aUser);
+
+			log.info("\"default\" user created");
+
+		} else {
+			log.info("\"default\" user exits");
 		}
 
 	}
