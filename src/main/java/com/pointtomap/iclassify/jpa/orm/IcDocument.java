@@ -55,8 +55,6 @@ public class IcDocument extends IcEntity implements Serializable {
 	@Column(name = "description")
 	private String description;
 
-	private boolean enabled = true;
-
 	private String documentSha1;
 
 	@OneToMany(mappedBy = "icDocument")
@@ -84,14 +82,6 @@ public class IcDocument extends IcEntity implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public String getDocumentSha1() {

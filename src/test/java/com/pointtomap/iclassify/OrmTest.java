@@ -53,7 +53,6 @@ class OrmTest {
 		IcDocument aDocument = new IcDocument();
 		aDocument.setDescription("My first image");
 		aDocument.setDocumentSha1("test");
-		aDocument.setEnabled(true);
 		icImageDao.persist(aDocument);
 
 		System.out.println("Done");
@@ -67,7 +66,6 @@ class OrmTest {
 		IcDocument aDocument = new IcDocument();
 		aDocument.setDescription("My first image");
 		aDocument.setDocumentSha1("test");
-		aDocument.setEnabled(true);
 		aDocument = icImageDao.persist(aDocument);
 
 		IcUserDocument icUserDocument = new IcUserDocument();
