@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -67,9 +68,9 @@ public class IcDocument extends IcEntity implements Serializable {
 	public IcDocument() {
 	}
 
-	public IcDocument(final IcDocument icImage) {
+	public IcDocument(final IcDocument icDocument) {
 
-		ReflectionUtils.cloneSkipNull(icImage, this, null);
+		ReflectionUtils.cloneSkipNull(icDocument, this, null);
 	}
 
 	public UUID getDocumentId() {
