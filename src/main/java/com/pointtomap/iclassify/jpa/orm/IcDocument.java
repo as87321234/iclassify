@@ -25,11 +25,13 @@ import lombok.ToString;
  *
  */
 @Entity
-@Table(name = "ic_document")
+@Table(name = "ic_document", indexes = { @Index(name = "DOCUMENT_SHA1_INDX_0", columnList = "documentSha1") })
+
 @EnableJpaRepositories
 @NamedQueries({
 
-		@NamedQuery(name = IcDocument.FIND_ALL, query = "SELECT e FROM IcDocument e")
+		@NamedQuery(name = IcDocument.FIND_ALL, query = "SELECT e FROM IcDocument e"),
+		@NamedQuery(name = IcDocument.FIND_DOCUMENT_BY_SHA1, query = "SELECT e FROM IcDocument e where e.documentSha1 = :documentSha1 and e.deleted = false ")
 
 })
 
@@ -37,7 +39,9 @@ import lombok.ToString;
 public class IcDocument extends IcEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String FIND_ALL = "IcImage.findAll";
+	public static final String FIND_ALL = "IcDocument.findAll";
+
+	public static final String FIND_DOCUMENT_BY_SHA1 = "IcDocument.findDocumentBySha1";
 
 	@Override
 	public void clearKey() {
