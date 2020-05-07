@@ -3,7 +3,12 @@ package com.pointtomap.iclassify;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class IClasssifyServerSessionHandler {
+
+	private static Logger log = LoggerFactory.getLogger(IClasssifyServerSessionHandler.class);
 
 	private static IClasssifyServerSessionHandler instanceSessionHandler;
 
@@ -20,15 +25,17 @@ public class IClasssifyServerSessionHandler {
 
 	}
 
-	public static IClassicyUserSession getUserSession(String jessionId) {
+	public static IClassicyUserSession getUserSession(String jsessionId) {
 
-		if (jessionId == null) {
+		log.debug(String.format("Getting session %s", jsessionId));
+
+		if (jsessionId == null) {
 			return getNewSession(UUID.randomUUID().toString());
 		} else {
-			IClassicyUserSession userSession = userSessionMap.get(jessionId);
+			IClassicyUserSession userSession = userSessionMap.get(jsessionId);
 
 			if (userSession == null) {
-				return getNewSession(jessionId);
+				return getNewSession(jsessionId);
 			}
 
 			return userSession;
@@ -36,11 +43,24 @@ public class IClasssifyServerSessionHandler {
 
 	}
 
-	public static IClassicyUserSession getNewSession(String jessionId) {
+	public static void removeUserSession(String jsessionId) {
+
+		if (jsessionId != null && userSessionMap.get(jsessionId) != null) {
+
+			log.debug(String.format("Removing session %s", jsessionId));
+			userSessionMap.remove(jsessionId);
+
+		}
+
+	}
+
+	public static IClassicyUserSession getNewSession(String jsessionId) {
 
 		IClassicyUserSession userSession = new IClassicyUserSession();
-		userSession.setJesssionId(jessionId);
+		userSession.setJesssionId(jsessionId);
 		userSessionMap.put(userSession.getJesssionId(), userSession);
+
+		log.debug(String.format("Getting new session %s", jsessionId));
 
 		return userSession;
 

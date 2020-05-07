@@ -32,6 +32,8 @@ public class IClassifyController {
 	protected static final String SESSION_UUID = "session_uuid";
 	protected static final String JESSSIONID = "JSESSIONID";
 
+	protected String ERROR_MSG = "error_msg";
+
 	public IClassifyController() {
 
 	}

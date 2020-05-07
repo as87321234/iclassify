@@ -40,6 +40,7 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 //			IClassifyController icClassifyController = getIClassifyController(handler);
 
 			// Initialize Cookie
+
 			Cookie jessionCookie = getCookieByName(request, JSESSION_ID);
 
 			// No cookie
@@ -66,6 +67,12 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 
 			// TODO: inject session id in model
 //			userSession.getJesssionId() 
+
+			// User logout
+			if (userSession.isAuthenticated() && ((HandlerMethod) handler).getMethod().getName().contains("logout")) {
+				IClasssifyServerSessionHandler.removeUserSession(jsessionId);
+				userSession.setAuthenticated(false);
+			}
 
 			// User not authenticated
 			// return user to authenticate.html

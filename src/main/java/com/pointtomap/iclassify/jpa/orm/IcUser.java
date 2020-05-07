@@ -16,6 +16,7 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.pointtomap.iclassify.jpa.util.HashUtil;
 import com.pointtomap.iclassify.jpa.util.ReflectionUtils;
 
 import lombok.ToString;
@@ -119,8 +120,8 @@ public class IcUser extends IcEntity implements Serializable {
 		return hashedPasswd;
 	}
 
-	public void setHashedPasswd(String hashedPasswd) {
-		this.hashedPasswd = hashedPasswd;
+	public void setHashedPasswd(String password) {
+		this.hashedPasswd = HashUtil.sha256(password);
 	}
 
 	public EnumUserGroup getUserGroup() {

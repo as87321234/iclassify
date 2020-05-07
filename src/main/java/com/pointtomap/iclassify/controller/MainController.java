@@ -68,6 +68,7 @@ public class MainController extends IClassifyController {
 
 	private static final String AUTHENTICATE_VIEW = "/thymeleaf/main/authenticate.html";
 	public static final String AUTHENTICATE_REQUEST = "/main/authenticate";
+	public static final String LOGOUT_REQUEST = "/main/logout";
 	private static final String AUTHENTICATE_VERIFY_REQUEST = "/main/authenticate/verify";
 
 	private static final String DRAG_AND_DROP_FILE_UPLOADING = "/main/dragAndDropFileUploading";
@@ -121,18 +122,34 @@ public class MainController extends IClassifyController {
 		return AUTHENTICATE_VIEW;
 	}
 
+	@GetMapping(value = LOGOUT_REQUEST)
+	public String logout(Locale locale, ModelMap model) {
+		return AUTHENTICATE_VIEW;
+	}
+
 	@RequestMapping(value = AUTHENTICATE_VERIFY_REQUEST, method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView authenticateVerify(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("mainControllerForm") MainControllerForm mainControllerForm,
 			@ModelAttribute("requestQuery") String requestQuery, ModelAndView model) {
 
-		System.out.println("tesT");
+		// Authenticate user
+		boolean isCredential = icUserDao.checkCredential(mainControllerForm.getUsername(),
+				mainControllerForm.getPassword());
 
-		IClassicyUserSession userSession = IClasssifyServerSessionHandler
-				.getUserSession(request.getRequestedSessionId());
+		if (isCredential) {
 
-		userSession.setAuthenticated(true);
+			IClassicyUserSession userSession = IClasssifyServerSessionHandler
+					.getUserSession(request.getRequestedSessionId());
+
+			userSession.setAuthenticated(true);
+
+		} else {
+
+			model.getModel().put(ERROR_MSG, "Invalid username or password.");
+			return new ModelAndView("redirect:" + INDEX_REQUEST, model.getModel());
+
+		}
 
 		return new ModelAndView("redirect:" + INDEX_REQUEST, model.getModel());
 

@@ -27,4 +27,6 @@ public interface IcUserDao {
 
 	public IcUser findUserByUsername(String username);
 
+	public boolean checkCredential(String username, String password);
+
 }
