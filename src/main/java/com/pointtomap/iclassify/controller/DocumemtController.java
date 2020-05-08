@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pointtomap.iclassify.ICUserSession;
+import com.pointtomap.iclassify.IC;
 import com.pointtomap.iclassify.ICConstant;
 import com.pointtomap.iclassify.ICEnvironment;
+import com.pointtomap.iclassify.ICUserSession;
 import com.pointtomap.iclassify.form.FileUploadForm;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
@@ -48,6 +49,9 @@ import com.pointtomap.iclassify.jpa.util.HashUtil;
 @Controller
 @Transactional
 public class DocumemtController extends IClassifyController {
+
+	private static final String LIST_DOCUMENT_REQUEST = "/document/listDocumentRequest";
+	private static final String LIST_DOCUMENT_VIEW = "thymeleaf/document/listDocumentRequest.html";
 
 	private static final String UPLOAD_DOCUMENT_VIEW = "/thymeleaf/document/uploadDocument.html";
 	private static final String UPLOAD_DOCUMENT_REQUEST = "/document/uploadDocument";
@@ -87,6 +91,19 @@ public class DocumemtController extends IClassifyController {
 
 	@Autowired
 	public void init(ICEnvironment env) {
+	}
+
+	@RequestMapping(LIST_DOCUMENT_REQUEST)
+	@ResponseBody
+	public ModelAndView listDocumentRequest(Locale locale, ModelAndView model) {
+
+		List<IcDocument> icDocumentList = icDocumentDao.findAll();
+
+		model.setViewName(LIST_DOCUMENT_VIEW);
+		model.addObject(IC.DOCUMENT_LIST, icDocumentList);
+
+		return model;
+
 	}
 
 	@RequestMapping(UPLOAD_DOCUMENT_REQUEST)
