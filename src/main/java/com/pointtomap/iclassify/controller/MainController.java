@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pointtomap.iclassify.IC;
-import com.pointtomap.iclassify.IClassicyUserSession;
-import com.pointtomap.iclassify.IClassifyEnvironment;
+import com.pointtomap.iclassify.ICUserSession;
+import com.pointtomap.iclassify.ICEnvironment;
 import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
@@ -64,7 +64,7 @@ public class MainController extends IClassifyController {
 	Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
-	IClassifyEnvironment env;
+	ICEnvironment env;
 
 	@Autowired
 	IcUserDao icUserDao;
@@ -93,7 +93,7 @@ public class MainController extends IClassifyController {
 	 */
 
 	@Autowired
-	public void init(IClassifyEnvironment env) {
+	public void init(ICEnvironment env) {
 	}
 
 	@GetMapping(value = "/")
@@ -135,7 +135,7 @@ public class MainController extends IClassifyController {
 
 		if (isCredential) {
 
-			IClassicyUserSession userSession = getUserSession(request);
+			ICUserSession userSession = getUserSession(request);
 			IcUser user = icUserDao.findUserByUsername(mainControllerForm.getUsername());
 
 			userSession.setUser(user);

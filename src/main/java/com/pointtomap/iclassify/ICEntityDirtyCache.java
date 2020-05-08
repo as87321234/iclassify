@@ -14,14 +14,14 @@ import org.springframework.stereotype.Repository;
 import com.pointtomap.iclassify.jpa.orm.IcEntity;
 
 @Repository
-public class IClassifyEntityDirtyCache {
+public class ICEntityDirtyCache {
 
 	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
 	private EntityManager em;
 
 	private final Map<String, IcEntity> dirtyEntityModified = new HashMap<String, IcEntity>();
 
-	public IClassifyEntityDirtyCache() {
+	public ICEntityDirtyCache() {
 
 	}
 

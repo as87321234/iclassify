@@ -30,9 +30,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class IClassifyEnvironment {
+public class ICEnvironment {
 
-	private static Logger log = LoggerFactory.getLogger(IClassifyEnvironment.class);
+	private static Logger log = LoggerFactory.getLogger(ICEnvironment.class);
 
 	private static final String IMPLEMENTATION_VERSION = "Implementation-Version";
 
@@ -40,12 +40,12 @@ public class IClassifyEnvironment {
 
 	String dcsDirectory;
 
-	public IClassifyEnvironment() {
+	public ICEnvironment() {
 		super();
 
 		try {
 			ClassPathResource clpr = new ClassPathResource("/META-INF/MANIFEST.MF");
-			IClassifyEnvironment.manifest = new Manifest(clpr.getInputStream());
+			ICEnvironment.manifest = new Manifest(clpr.getInputStream());
 		} catch (Exception e) {
 			log.error("/META-INF/MANIFEST.MF not found");
 		}

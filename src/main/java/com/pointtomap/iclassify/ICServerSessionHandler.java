@@ -6,18 +6,18 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IClasssifyServerSessionHandler {
+public class ICServerSessionHandler {
 
-	private static Logger log = LoggerFactory.getLogger(IClasssifyServerSessionHandler.class);
+	private static Logger log = LoggerFactory.getLogger(ICServerSessionHandler.class);
 
-	private static IClasssifyServerSessionHandler instanceSessionHandler;
+	private static ICServerSessionHandler instanceSessionHandler;
 
-	private final static HashMap<String, IClassicyUserSession> userSessionMap = new HashMap<String, IClassicyUserSession>();
+	private final static HashMap<String, ICUserSession> userSessionMap = new HashMap<String, ICUserSession>();
 
-	public static IClasssifyServerSessionHandler getSingleton() {
+	public static ICServerSessionHandler getSingleton() {
 
 		if (instanceSessionHandler == null) {
-			instanceSessionHandler = new IClasssifyServerSessionHandler();
+			instanceSessionHandler = new ICServerSessionHandler();
 			return instanceSessionHandler;
 		}
 
@@ -25,14 +25,14 @@ public class IClasssifyServerSessionHandler {
 
 	}
 
-	public static IClassicyUserSession getUserSession(String jsessionId) {
+	public static ICUserSession getUserSession(String jsessionId) {
 
 		log.debug(String.format("Getting session %s", jsessionId));
 
 		if (jsessionId == null) {
 			return getNewSession(UUID.randomUUID().toString());
 		} else {
-			IClassicyUserSession userSession = userSessionMap.get(jsessionId);
+			ICUserSession userSession = userSessionMap.get(jsessionId);
 
 			if (userSession == null) {
 				return getNewSession(jsessionId);
@@ -54,9 +54,9 @@ public class IClasssifyServerSessionHandler {
 
 	}
 
-	public static IClassicyUserSession getNewSession(String jsessionId) {
+	public static ICUserSession getNewSession(String jsessionId) {
 
-		IClassicyUserSession userSession = new IClassicyUserSession();
+		ICUserSession userSession = new ICUserSession();
 		userSession.setJesssionId(jsessionId);
 		userSessionMap.put(userSession.getJesssionId(), userSession);
 

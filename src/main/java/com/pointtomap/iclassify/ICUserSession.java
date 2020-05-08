@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 
-public class IClassicyUserSession {
+public class ICUserSession {
 
 	// TODO: Implement timer to clean the session automatically
 
-	Logger LOG = LoggerFactory.getLogger(IClassicyUserSession.class);
+	Logger LOG = LoggerFactory.getLogger(ICUserSession.class);
 
 	private String jesssionId;
 

@@ -22,18 +22,18 @@ import com.pointtomap.iclassify.controller.IClassifyController;
 import com.pointtomap.iclassify.controller.MainController;
 
 @Component
-public class IClassifyHandlerInterceptor implements HandlerInterceptor {
+public class ICHandlerInterceptor implements HandlerInterceptor {
 
 	private static final String JSESSION_ID = "JSESSIONID";
 
-	private static Logger log = LoggerFactory.getLogger(IClassifyHandlerInterceptor.class);
+	private static Logger log = LoggerFactory.getLogger(ICHandlerInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
 		request.setAttribute("date", (new Date()).toString());
-		request.setAttribute("version", IClassifyEnvironment.getManifestVersion());
+		request.setAttribute("version", ICEnvironment.getManifestVersion());
 
 		if (handler instanceof HandlerMethod && ((HandlerMethod) handler).getBean() instanceof IClassifyController) {
 
@@ -57,10 +57,10 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 			String jsessionId = jessionCookie.getValue();
 
 			// Check if user has a session
-			IClassicyUserSession userSession = IClasssifyServerSessionHandler.getUserSession(jsessionId);
+			ICUserSession userSession = ICServerSessionHandler.getUserSession(jsessionId);
 
 			if (userSession == null) {
-				userSession = IClasssifyServerSessionHandler.getNewSession(jsessionId);
+				userSession = ICServerSessionHandler.getNewSession(jsessionId);
 			}
 
 			// Inject session id in model
@@ -68,7 +68,7 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 
 			// User logout
 			if (userSession.isAuthenticated() && ((HandlerMethod) handler).getMethod().getName().contains("logout")) {
-				IClasssifyServerSessionHandler.removeUserSession(jsessionId);
+				ICServerSessionHandler.removeUserSession(jsessionId);
 				userSession.setAuthenticated(false);
 			}
 
@@ -141,10 +141,10 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 //		map.put("version", IClassifyEnvironment.getManifestVersion());
 
 		// If error detected copy error in the results properties
-		Object o = map.get(IClassifyConstant.RESPONSE_ERROR);
+		Object o = map.get(ICConstant.RESPONSE_ERROR);
 
 		if (o != null) {
-			map.put(IClassifyConstant.RESPONSE_RESULT, o);
+			map.put(ICConstant.RESPONSE_RESULT, o);
 			log.error("\n" + o.toString());
 		}
 

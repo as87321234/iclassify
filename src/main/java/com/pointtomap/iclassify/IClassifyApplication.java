@@ -39,10 +39,10 @@ public class IClassifyApplication {
 	private static Logger log = LoggerFactory.getLogger(IClassifyApplication.class);
 
 	@Autowired
-	IClassifyConfig perfTestConfig;
+	ICConfig perfTestConfig;
 
 	@SuppressWarnings("unused")
-	private static IClassifyEnvironment env;
+	private static ICEnvironment env;
 
 	/**
 	 * 
@@ -68,12 +68,12 @@ public class IClassifyApplication {
 	 * 
 	 */
 	@Autowired
-	public void initEnv(IClassifyEnvironment env) throws Exception {
+	public void initEnv(ICEnvironment env) throws Exception {
 
 		log.info("Initialization initEnv");
 		IClassifyApplication.env = env;
 
-		log.info(String.format("IClassify (%s)", IClassifyEnvironment.getManifestVersion()));
+		log.info(String.format("IClassify (%s)", ICEnvironment.getManifestVersion()));
 
 	}
 
@@ -84,7 +84,7 @@ public class IClassifyApplication {
 	 * @param env
 	 */
 	@Autowired
-	public void dumpEnvironmentProperties(IClassifyEnvironment env) {
+	public void dumpEnvironmentProperties(ICEnvironment env) {
 
 		System.getProperties().forEach((k, v) -> {
 			log.debug(k + "=" + v);
@@ -105,7 +105,7 @@ public class IClassifyApplication {
 	 * @throws IOException
 	 */
 	@Autowired
-	public void showBanner(IClassifyEnvironment env) throws IOException {
+	public void showBanner(ICEnvironment env) throws IOException {
 
 		ClassPathResource clpr = new ClassPathResource("static/spring-boot-banner.txt");
 		ByteArrayOutputStream ous = new ByteArrayOutputStream(100000);

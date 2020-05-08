@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pointtomap.iclassify.IC;
-import com.pointtomap.iclassify.IClassicyUserSession;
+import com.pointtomap.iclassify.ICUserSession;
 import com.pointtomap.iclassify.jpa.orm.IcEntity;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 import com.pointtomap.iclassify.jpa.util.ReflectionUtils;
@@ -143,7 +143,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 		// and finally, the getAttribute("USER") could be null as well!!!
 		// thus, you may want to thown a RuntimeException or do other things.
 
-		IClassicyUserSession userSession = (IClassicyUserSession) request.getAttribute(IC.USER_SESSION);
+		ICUserSession userSession = (ICUserSession) request.getAttribute(IC.USER_SESSION);
 		IcUser icUser = userSession.getUser();
 
 		// Set a System User

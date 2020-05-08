@@ -1,6 +1,6 @@
 package com.pointtomap.iclassify;
 
-public class IC extends IClassifyConstant {
+public class IC extends ICConstant {
 
 	public static final String RESPONSE_REQUEST_QUERY = "requestQuery";
 	public static final String RESPONSE_RESULT = "results";

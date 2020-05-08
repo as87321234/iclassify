@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pointtomap.iclassify.IClassifyEnvironment;
+import com.pointtomap.iclassify.ICEnvironment;
 import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
@@ -44,7 +44,7 @@ public class AccountController extends IClassifyController {
 	Logger log = LoggerFactory.getLogger(AccountController.class);
 
 	@Autowired
-	IClassifyEnvironment env;
+	ICEnvironment env;
 
 	@Autowired
 	IcUserDao icUserDao;
@@ -67,7 +67,7 @@ public class AccountController extends IClassifyController {
 	 */
 
 	@Autowired
-	public void init(IClassifyEnvironment env) {
+	public void init(ICEnvironment env) {
 
 	}
 

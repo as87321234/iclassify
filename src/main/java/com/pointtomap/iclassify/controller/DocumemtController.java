@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pointtomap.iclassify.IClassicyUserSession;
-import com.pointtomap.iclassify.IClassifyConstant;
-import com.pointtomap.iclassify.IClassifyEnvironment;
+import com.pointtomap.iclassify.ICUserSession;
+import com.pointtomap.iclassify.ICConstant;
+import com.pointtomap.iclassify.ICEnvironment;
 import com.pointtomap.iclassify.form.FileUploadForm;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
@@ -57,7 +57,7 @@ public class DocumemtController extends IClassifyController {
 	Logger log = LoggerFactory.getLogger(DocumemtController.class);
 
 	@Autowired
-	IClassifyEnvironment env;
+	ICEnvironment env;
 
 	@Autowired
 	IcUserDao icUserDao;
@@ -86,7 +86,7 @@ public class DocumemtController extends IClassifyController {
 	 */
 
 	@Autowired
-	public void init(IClassifyEnvironment env) {
+	public void init(ICEnvironment env) {
 	}
 
 	@RequestMapping(UPLOAD_DOCUMENT_REQUEST)
@@ -106,7 +106,7 @@ public class DocumemtController extends IClassifyController {
 
 			List<byte[]> fileList = getMultipleFiles(uploadForm);
 
-			IClassicyUserSession userSession = getUserSession(request);
+			ICUserSession userSession = getUserSession(request);
 			IcUser user = userSession.getUser();
 
 			for (byte[] fileByteArray : fileList) {
@@ -155,12 +155,12 @@ public class DocumemtController extends IClassifyController {
 
 			model = new ModelAndView(UPLOAD_DOCUMENT_VIEW, new HashMap<String, Object>());
 
-			model.getModel().put(IClassifyConstant.RESPONSE_RESULT, "Test");
-			model.getModel().put(IClassifyConstant.RESPONSE_REQUEST_QUERY, requestQuery);
+			model.getModel().put(ICConstant.RESPONSE_RESULT, "Test");
+			model.getModel().put(ICConstant.RESPONSE_REQUEST_QUERY, requestQuery);
 
 		} catch (Exception e) {
 
-			model.getModel().put(IClassifyConstant.RESPONSE_ERROR, this.exceptionFormatter(e));
+			model.getModel().put(ICConstant.RESPONSE_ERROR, this.exceptionFormatter(e));
 			throw e;
 
 		}

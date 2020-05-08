@@ -1,0 +1,51 @@
+<!-- list.html -->
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/base :: baseHead(~{::title}, ~{::link})">
+<meta charset="ISO-8859-1" />
+
+<link href="/css/styles.css" rel="stylesheet" />
+
+<title>iClassify - DCS</title>
+</head>
+
+<body>
+
+	<div align="center">
+
+		<div th:replace="fragments/header :: header"></div>
+
+		<div class="header">
+
+			<table class="blueTable" style="border: 1px">
+				<thead>
+					<tr>
+						<th>Document SHA1</th>	
+						<th>Description</th>	
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${documentList.empty}">
+						<td colspan="2">No document available</td>
+					</tr>
+					<tr th:each="document : ${documentList}">
+						<td><span th:text="${document.documentSha1}"> Document SHA1 </span></td>
+						<td><span th:text="${document.description}"> Description </span></td>
+						<td><i class="fas fa-edit fa-sm"></i><i class="fas fa-trash fa-sm"></i><span th:text="${user.userId}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+		</div>
+
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+
+	</div>
+
+
+</body>
+
+</html>

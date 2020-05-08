@@ -16,10 +16,10 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
-public class IClassifyConfig implements WebMvcConfigurer {
+public class ICConfig implements WebMvcConfigurer {
 
 	@Autowired
-	IClassifyHandlerInterceptor perfTestHandlerInterceptor;
+	ICHandlerInterceptor perfTestHandlerInterceptor;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

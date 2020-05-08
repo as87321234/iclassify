@@ -20,9 +20,9 @@ import com.pointtomap.iclassify.jpa.orm.IcUser;
 
 @SuppressWarnings("deprecation")
 @Controller
-public abstract class IClassifySession {
+public abstract class ICSession {
 
-	public IClassicyUserSession getIclassifyUserSession() {
+	public ICUserSession getIclassifyUserSession() {
 		return iclassifyUserSession;
 	}
 
@@ -30,11 +30,11 @@ public abstract class IClassifySession {
 		return user;
 	}
 
-	public void setIclassifyUserSession(IClassicyUserSession iclassifyUserSession) {
+	public void setIclassifyUserSession(ICUserSession iclassifyUserSession) {
 		this.iclassifyUserSession = iclassifyUserSession;
 	}
 
-	private static final Logger LOG = LoggerFactory.getLogger(IClassifySession.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ICSession.class);
 
 	public final static String USER_SESSION = "USER";
 	public final static String DTO_SESSION = "DTO";
@@ -49,7 +49,7 @@ public abstract class IClassifySession {
 
 	private HttpSession session;
 
-	private IClassicyUserSession iclassifyUserSession;
+	private ICUserSession iclassifyUserSession;
 
 	private IcUser user;
 
@@ -68,7 +68,7 @@ public abstract class IClassifySession {
 	private Boolean checkSessionAdmin = CHECKING_USE_ADMIN_SESSION_OFF;
 
 	@Autowired
-	private IClassifyEntityDirtyCache exEntityDirtyCache;
+	private ICEntityDirtyCache exEntityDirtyCache;
 
 	private Date maxModifiedClientList;
 
@@ -77,14 +77,14 @@ public abstract class IClassifySession {
 	/*
 	 * Typically here, always check the session
 	 */
-	public IClassifySession() {
+	public ICSession() {
 
 	}
 
 	/*
 	 * There is the constructor to override the session checking
 	 */
-	public IClassifySession(final Boolean checkUserInSession) {
+	public ICSession(final Boolean checkUserInSession) {
 		this.checkUserInSession = checkUserInSession;
 	}
 
@@ -92,7 +92,7 @@ public abstract class IClassifySession {
 	 * There is the constructor to override the session checking and also make sure
 	 * the user is admin right
 	 */
-	public IClassifySession(final Boolean checkUserInSession, final Boolean checkSessionAdmin) {
+	public ICSession(final Boolean checkUserInSession, final Boolean checkSessionAdmin) {
 		this.checkUserInSession = checkUserInSession;
 		this.checkSessionAdmin = checkSessionAdmin;
 	}
@@ -107,7 +107,7 @@ public abstract class IClassifySession {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 
-	public void setIClassifySession(final IClassicyUserSession blastSession) {
+	public void setIClassifySession(final ICUserSession blastSession) {
 		this.iclassifyUserSession = blastSession;
 	}
 

@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pointtomap.iclassify.IC;
-import com.pointtomap.iclassify.IClassicyUserSession;
-import com.pointtomap.iclassify.IClassifyConstant;
+import com.pointtomap.iclassify.ICUserSession;
+import com.pointtomap.iclassify.ICConstant;
 
 /**
  * <h1>PerfTestInitEntrust</h1>
@@ -37,9 +37,9 @@ public class IClassifyController {
 
 	}
 
-	IClassicyUserSession getUserSession(HttpServletRequest request) {
+	ICUserSession getUserSession(HttpServletRequest request) {
 
-		IClassicyUserSession userSession = (IClassicyUserSession) request.getAttribute(IC.USER_SESSION);
+		ICUserSession userSession = (ICUserSession) request.getAttribute(IC.USER_SESSION);
 		return userSession;
 	}
 
@@ -85,7 +85,7 @@ public class IClassifyController {
 
 		String fmtExcept = exceptionFormatter(e);
 
-		modelMap.put(IClassifyConstant.RESPONSE_ERROR, exceptionFormatter(e));
+		modelMap.put(ICConstant.RESPONSE_ERROR, exceptionFormatter(e));
 
 		return fmtExcept;
 
