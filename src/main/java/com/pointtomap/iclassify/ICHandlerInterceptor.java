@@ -153,13 +153,6 @@ public class ICHandlerInterceptor implements HandlerInterceptor {
 
 	}
 
-	private IClassifyController getIClassifyController(Object handler) {
-
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		return (IClassifyController) handlerMethod.getBean();
-
-	}
-
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
