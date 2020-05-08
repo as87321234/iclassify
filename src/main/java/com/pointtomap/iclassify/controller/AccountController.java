@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pointtomap.iclassify.IC;
 import com.pointtomap.iclassify.ICEnvironment;
 import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
@@ -39,7 +40,6 @@ public class AccountController extends IClassifyController {
 
 	private static final String ACCOUNT_LIST_VIEW = "thymeleaf/account/list.html";
 	private static final String ACCOUNT_LIST_REQUEST = "/account/list";
-	private static final String USER_LIST = "userList";
 
 	Logger log = LoggerFactory.getLogger(AccountController.class);
 
@@ -87,7 +87,7 @@ public class AccountController extends IClassifyController {
 		List<IcUser> icUserList = icUserDao.findAll();
 
 		model.setViewName(ACCOUNT_LIST_VIEW);
-		model.addObject(USER_LIST, icUserList);
+		model.addObject(IC.USER_LIST, icUserList);
 
 		return model;
 

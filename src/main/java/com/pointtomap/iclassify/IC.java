@@ -13,4 +13,10 @@ public class IC extends ICConstant {
 	// response model properties
 	public static final String ERROR_MSG = "error_msg";
 
+	// Account properties
+	public static final String USER_LIST = "userList";
+
+	// Document Controller Properties
+	public static final String DOCUMENT_LIST = "documentList";
+
 }
