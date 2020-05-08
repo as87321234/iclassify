@@ -25,7 +25,7 @@ public class IcEntityDirtyCache {
 
 	}
 
-	public Date getModified(final Class c, final String jsession) {
+	public Date getModified(final Class<? extends IcEntity> c, final String jsession) {
 
 		Date watermark = null;
 
@@ -33,8 +33,7 @@ public class IcEntityDirtyCache {
 			watermark = refreshEntity(c, jsession).getModified();
 		}
 
-		watermark = dirtyEntityModified.get(c.getCanonicalName() + jsession)
-				.getModified();
+		watermark = dirtyEntityModified.get(c.getCanonicalName() + jsession).getModified();
 
 		if (watermark == null) {
 			watermark = new Date();
@@ -46,22 +45,19 @@ public class IcEntityDirtyCache {
 
 	public void setModified(final IcEntity e, final String jsession) {
 
-		@SuppressWarnings("rawtypes")
-		final Class c = e.getClass();
+		final Class<? extends IcEntity> c = e.getClass();
 
 		if (dirtyEntityModified.get(c.getCanonicalName() + jsession) == null) {
 			refreshEntity(e.getClass(), jsession).getModified();
 		}
 
-		dirtyEntityModified.get(c.getCanonicalName() + jsession).setModified(
-				e.getModified());
+		dirtyEntityModified.get(c.getCanonicalName() + jsession).setModified(e.getModified());
 
 	}
 
-	private IcEntity refreshEntity(final Class c, final String jsession) {
+	private IcEntity refreshEntity(final Class<? extends IcEntity> c, final String jsession) {
 
-		final Query q = em.createQuery("SELECT e FROM " + c.getName()
-				+ " e  order by modified desc ");
+		final Query q = em.createQuery("SELECT e FROM " + c.getName() + " e  order by modified desc ");
 
 		IcEntity e = (IcEntity) q.setMaxResults(1).getSingleResult();
 

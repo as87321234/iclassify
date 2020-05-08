@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class SQLClauseDynamicFiltering extends SQLClause {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SQLClauseDynamicFiltering.class);
@@ -21,8 +19,6 @@ public class SQLClauseDynamicFiltering extends SQLClause {
 	}
 
 	static public List<SQLClause> multiClauseFactory(String filters) {
-
-		final ObjectMapper mapper = new ObjectMapper();
 
 		List<SQLClause> clauseList = new ArrayList<SQLClause>();
 
