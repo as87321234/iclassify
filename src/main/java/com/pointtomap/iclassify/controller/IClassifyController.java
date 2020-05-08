@@ -6,10 +6,14 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pointtomap.iclassify.IC;
+import com.pointtomap.iclassify.IClassicyUserSession;
 import com.pointtomap.iclassify.IClassifyConstant;
 
 /**
@@ -29,13 +33,14 @@ public class IClassifyController {
 
 	private static Logger log = LoggerFactory.getLogger(IClassifyController.class);
 
-	protected static final String SESSION_UUID = "session_uuid";
-	protected static final String JESSSIONID = "JSESSIONID";
-
-	protected static final String ERROR_MSG = "error_msg";
-
 	public IClassifyController() {
 
+	}
+
+	IClassicyUserSession getUserSession(HttpServletRequest request) {
+
+		IClassicyUserSession userSession = (IClassicyUserSession) request.getAttribute(IC.USER_SESSION);
+		return userSession;
 	}
 
 	String exceptionFormatter(Exception e) {
