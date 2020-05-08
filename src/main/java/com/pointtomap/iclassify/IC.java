@@ -1,0 +1,16 @@
+package com.pointtomap.iclassify;
+
+public class IC extends IClassifyConstant {
+
+	public static final String RESPONSE_REQUEST_QUERY = "requestQuery";
+	public static final String RESPONSE_RESULT = "results";
+	public static final String RESPONSE_ERROR = "error";
+
+	// request model properties
+	public static final String USER_SESSION = "session_uuid";
+	public static final String JESSSIONID = "JSESSIONID";
+
+	// response model properties
+	public static final String ERROR_MSG = "error_msg";
+
+}
