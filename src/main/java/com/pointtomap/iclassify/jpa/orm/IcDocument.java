@@ -25,8 +25,14 @@ import lombok.ToString;
  * The persistent class for the ic_image database table.
  *
  */
+
+// @formatter:off
 @Entity
-@Table(name = "ic_document", indexes = { @Index(name = "DOCUMENT_SHA1_INDX_0", columnList = "documentSha1") })
+@Table(name = "ic_document",
+	   indexes = { 
+			   @Index(name = "DOCUMENT_SHA1_INDX_0", columnList = "documentSha1") 
+		}
+)
 
 @EnableJpaRepositories
 @NamedQueries({
@@ -35,6 +41,7 @@ import lombok.ToString;
 		@NamedQuery(name = IcDocument.FIND_DOCUMENT_BY_SHA1, query = "SELECT e FROM IcDocument e where e.documentSha1 = :documentSha1 and e.deleted = false ")
 
 })
+//@formatter:on
 
 @ToString
 public class IcDocument extends IcEntity implements Serializable {
