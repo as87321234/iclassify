@@ -37,10 +37,7 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 
 		if (handler instanceof HandlerMethod && ((HandlerMethod) handler).getBean() instanceof IClassifyController) {
 
-//			IClassifyController icClassifyController = getIClassifyController(handler);
-
 			// Initialize Cookie
-
 			Cookie jessionCookie = getCookieByName(request, JSESSION_ID);
 
 			// No cookie
@@ -54,6 +51,7 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 				jessionCookie.setValue(UUID.randomUUID().toString());
 			}
 
+			// Reset session idle time
 			jessionCookie.setMaxAge(1 * 60 * 60 * 1000);
 
 			String jsessionId = jessionCookie.getValue();
@@ -65,8 +63,8 @@ public class IClassifyHandlerInterceptor implements HandlerInterceptor {
 				userSession = IClasssifyServerSessionHandler.getNewSession(jsessionId);
 			}
 
-			// TODO: inject session id in model
-//			userSession.getJesssionId() 
+			// Inject session id in model
+			request.setAttribute(IC.USER_SESSION, userSession);
 
 			// User logout
 			if (userSession.isAuthenticated() && ((HandlerMethod) handler).getMethod().getName().contains("logout")) {
