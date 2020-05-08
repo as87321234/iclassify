@@ -1,9 +1,5 @@
 package com.pointtomap.iclassify.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,27 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pointtomap.iclassify.IC;
 import com.pointtomap.iclassify.IClassicyUserSession;
-import com.pointtomap.iclassify.IClassifyConstant;
 import com.pointtomap.iclassify.IClassifyEnvironment;
-import com.pointtomap.iclassify.IClasssifyServerSessionHandler;
-import com.pointtomap.iclassify.form.FileUploadForm;
 import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
+import com.pointtomap.iclassify.jpa.dao.IcUserDocumentDao;
 import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
-import com.pointtomap.iclassify.jpa.orm.IcDocument;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
-import com.pointtomap.iclassify.jpa.util.HashUtil;
 
 /**
  * <h1>NistPacketController</h1>
@@ -63,16 +54,12 @@ public class MainController extends IClassifyController {
 	private static final String INDEX_VIEW = "/thymeleaf/index.html";
 	public static final String INDEX_REQUEST = "/index";
 
-	private static final String UPLOAD_DOCUMENT_VIEW = "/thymeleaf/main/uploadDocument.html";
-	private static final String UPLOAD_DOCUMENT_REQUEST = "/main/uploadDocument";
-
 	private static final String AUTHENTICATE_VIEW = "/thymeleaf/main/authenticate.html";
 	public static final String AUTHENTICATE_REQUEST = "/main/authenticate";
 	public static final String LOGOUT_REQUEST = "/main/logout";
 	private static final String AUTHENTICATE_VERIFY_REQUEST = "/main/authenticate/verify";
 
-	private static final String DRAG_AND_DROP_FILE_UPLOADING = "/main/dragAndDropFileUploading";
-	private static final String LOGOUT_LOGIN_REQUEST = "/main/loginLogout";
+	private static final String LOGOUT_LOGIN_REQUEST = "/main/logoutLogin";
 
 	Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -84,6 +71,9 @@ public class MainController extends IClassifyController {
 
 	@Autowired
 	IcDocumentDao icDocumentDao;
+
+	@Autowired
+	IcUserDocumentDao icUserDocumentDao;
 
 	/**
 	 * Default constructor
@@ -145,106 +135,20 @@ public class MainController extends IClassifyController {
 
 		if (isCredential) {
 
-			IClassicyUserSession userSession = IClasssifyServerSessionHandler
-					.getUserSession(request.getRequestedSessionId());
+			IClassicyUserSession userSession = getUserSession(request);
+			IcUser user = icUserDao.findUserByUsername(mainControllerForm.getUsername());
 
+			userSession.setUser(user);
 			userSession.setAuthenticated(true);
 
 		} else {
 
-			model.put(ERROR_MSG, "Invalid username or password.");
+			model.put(IC.ERROR_MSG, "Invalid username or password.");
 			return new ModelAndView(AUTHENTICATE_VIEW, model);
 
 		}
 
 		return new ModelAndView("redirect:" + INDEX_REQUEST, model);
-
-	}
-
-	@RequestMapping(UPLOAD_DOCUMENT_REQUEST)
-	@ResponseBody
-	public ModelAndView uploadDocument(Locale locale, ModelMap model) {
-
-		return new ModelAndView(UPLOAD_DOCUMENT_VIEW, model);
-
-	}
-
-	@RequestMapping(value = DRAG_AND_DROP_FILE_UPLOADING, method = RequestMethod.POST)
-	public @ResponseBody ModelAndView dragAndDropFileUploading(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
-			@ModelAttribute("requestQuery") String requestQuery, ModelAndView model) throws Exception {
-
-		try {
-
-			List<byte[]> fileList = getMultipleFiles(uploadForm);
-
-			for (byte[] fileByteArray : fileList) {
-
-				String filenameHash = HashUtil.sha256(fileByteArray) + ".dcs";
-				log.debug(String.format("Loading file: %s", filenameHash));
-
-				// Check if file already exists
-
-				boolean isDocumentNotExist = icDocumentDao.findByDocumentSha1(filenameHash) == null ? true : false;
-
-				if (isDocumentNotExist) {
-
-					File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
-					FileCopyUtils.copy(fileByteArray, f);
-
-					IcDocument aDocument = new IcDocument();
-					aDocument.setDocumentSha1(filenameHash);
-					aDocument.setDescription("");
-
-					icDocumentDao.persist(aDocument);
-				} else {
-					log.debug(String.format("File %s already exist", filenameHash));
-				}
-
-			}
-
-			model = new ModelAndView(UPLOAD_DOCUMENT_VIEW, new HashMap<String, Object>());
-
-			model.getModel().put(IClassifyConstant.RESPONSE_RESULT, "Test");
-			model.getModel().put(IClassifyConstant.RESPONSE_REQUEST_QUERY, requestQuery);
-
-		} catch (Exception e) {
-
-			model.getModel().put(IClassifyConstant.RESPONSE_ERROR, this.exceptionFormatter(e));
-			throw e;
-
-		}
-
-		return model;
-
-	}
-
-	private List<byte[]> getMultipleFiles(FileUploadForm uploadForm) throws Exception {
-
-		List<MultipartFile> multipartFileList = uploadForm.getFileselect();
-
-		List<byte[]> fileList = new ArrayList<byte[]>();
-
-		if (null != multipartFileList && multipartFileList.size() > 0) {
-
-			for (MultipartFile multipartFile : multipartFileList) {
-
-				String fileName = multipartFile.getOriginalFilename();
-
-				log.debug(String.format("Processing file %s", fileName));
-
-				if (!"".equalsIgnoreCase(fileName)) {
-
-					byte[] fileByte = multipartFile.getBytes();
-
-					fileList.add(fileByte);
-
-				}
-
-			}
-
-		}
-
-		return fileList;
 
 	}
 
@@ -260,6 +164,7 @@ public class MainController extends IClassifyController {
 
 		IcUser adminUser = icUserDao.findUserByUsername("admin");
 		IcUser defaultUser = icUserDao.findUserByUsername("sb87321234");
+		IcUser defaultUser2 = icUserDao.findUserByUsername("as87321234");
 
 		if (adminUser == null) {
 			IcUser aUser = new IcUser();
@@ -284,11 +189,23 @@ public class MainController extends IClassifyController {
 			aUser.setUserGroup(EnumUserGroup.READ_WRITE);
 
 			icUserDao.persist(aUser);
-
-			log.info("\"default\" user created");
-
 		} else {
 			log.info("\"default\" user exits");
+		}
+
+		if (defaultUser2 == null) {
+			IcUser aUser = new IcUser();
+			aUser.setUsername("as87321234");
+			aUser.setEmailAddress("as87321234@gmail.com");
+			aUser.setHashedPasswd("a");
+			aUser.setUserGroup(EnumUserGroup.READ_WRITE);
+
+			icUserDao.persist(aUser);
+
+			log.info("\"default2\" user created");
+
+		} else {
+			log.info("\"default2\" user exits");
 		}
 
 	}
