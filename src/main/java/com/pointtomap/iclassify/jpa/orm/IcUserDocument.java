@@ -24,18 +24,28 @@ import lombok.ToString;
  * The persistent class for the ic_user database table.
  *
  */
+
+//@formatter:off
+
 @Entity
 @Table(name = "ic_user_document")
-@EnableJpaRepositories
-@NamedQueries({
 
-		@NamedQuery(name = IcUserDocument.FIND_ALL, query = "SELECT e FROM IcUserDocument e") })
+@EnableJpaRepositories
+
+@NamedQueries({
+		@NamedQuery(name = IcUserDocument.FIND_ALL, query = "SELECT e FROM IcUserDocument e"),
+		@NamedQuery(cacheable = false, readOnly = false, name = IcUserDocument.FIND_BY_IC_DOCUMENT, query = "SELECT c FROM IcUserDocument c where c.icDocument = :icDocument and  c.icUser = :icUser and c.deleted=false ") 
+})
+
+	// @formatter:on
 
 @ToString
 public class IcUserDocument extends IcEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_ALL = "IcUserDocument.findAll";
+
+	public static final String FIND_BY_IC_DOCUMENT = "IcUserDocument.findByIcDocument";
 
 	@Override
 	public void clearKey() {

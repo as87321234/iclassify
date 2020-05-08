@@ -2,6 +2,8 @@ package com.pointtomap.iclassify.jpa.dao;
 
 import java.util.List;
 
+import com.pointtomap.iclassify.jpa.orm.IcDocument;
+import com.pointtomap.iclassify.jpa.orm.IcUser;
 import com.pointtomap.iclassify.jpa.orm.IcUserDocument;
 
 public interface IcUserDocumentDao {
@@ -21,5 +23,7 @@ public interface IcUserDocumentDao {
 	public void deleteLogical(final IcUserDocument IcUserDocumentId);
 
 	public IcUserDocument persist(final IcUserDocument IcUserDocumentId);
+
+	IcUserDocument findByIcDocument(IcDocument document, IcUser user);
 
 }
