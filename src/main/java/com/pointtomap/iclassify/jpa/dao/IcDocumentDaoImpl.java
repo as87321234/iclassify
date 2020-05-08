@@ -9,6 +9,7 @@ import com.pointtomap.iclassify.jpa.orm.IcDocument;
 @Repository
 public class IcDocumentDaoImpl extends GenericDaoImpl<IcDocument> implements IcDocumentDao {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public IcDocument findByDocumentSha1(String filenameHash) {
 
@@ -28,6 +29,7 @@ public class IcDocumentDaoImpl extends GenericDaoImpl<IcDocument> implements IcD
 			ex.printStackTrace();
 			logInfo(ex.getMessage(), ex);
 		}
+
 		return document;
 	}
 
