@@ -3,9 +3,11 @@
 
 <div class="header" align="center" th:fragment="header">
 
-
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<!-- 		<a class="navbar-brand" href="#">DCS</a>
+	<table style="width:100%">
+		<tr>
+			<td style="text-align: left; width:90%">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<!-- 		<a class="navbar-brand" href="#">DCS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -13,39 +15,39 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
  -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> DCS </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/index">About DCS</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Preferences</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/main/logoutLogin">Sign in</a> <a
-							class="dropdown-item" href="/main/logout">Log out</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/main/logoutLogin">Quit</a>
-						<div class="dropdown-divider"></div>
-					</div></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Actions </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/document/listDocumentRequest">Documents</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Dictionary</a> <a
-							class="dropdown-item" href="#">Mapping</a><a
-							class="dropdown-item" href="#">Translate</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/document/uploadDocument">Upload
-							Documents</a>
-					</div></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> DCS </a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="/index">About DCS</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Preferences</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/main/logoutLogin">Sign in</a> <a
+										class="dropdown-item" href="/main/logout">Log out</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/main/logoutLogin">Quit</a>
+									<div class="dropdown-divider"></div>
+								</div></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> Actions </a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="/document/listDocumentRequest">Documents</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Dictionary</a> <a
+										class="dropdown-item" href="#">Mapping</a><a
+										class="dropdown-item" href="#">Translate</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/document/uploadDocument">Upload
+										Documents</a>
+								</div></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> System </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -56,25 +58,23 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Something else here</a>
 			 -->
-					</div></li>
-				<li class="nav-item"><a class="nav-link disabled" href="#">Help</a>
-				</li>
-			</ul>
-			<!-- 			<form class="form-inline my-2 my-lg-0">
+								</div></li>
+							<li class="nav-item"><a class="nav-link disabled" href="#">Help</a>
+							</li>
+						</ul>
+						<!-- 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search"
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
  -->
-		</div>
-	</nav>
+					</div>
+				</nav>
+			</td>
 
-
-	<div class="babyBlue">
-		<!-- Place your kit's code here -->
-		<h2 th:text="#{index.app_title}">iClassify 2020</h2>
-		<h3 th:text="#{index.app_subtitle}">Document Classification
-			System</h3>
-	</div>
+			<td style="text-align: right">Welcome  <span  th:text="${session_uuid.user.username}"></span></td>
+		<tr>
+	</table>
 
 </div>
+
