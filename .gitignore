@@ -3,3 +3,5 @@ transaction-logs/
 
 target/
 
+
+*.db
