@@ -69,6 +69,8 @@ public class IcDocument extends IcEntity implements Serializable {
 
 	private String documentSha1;
 
+	private String originalFilename;
+
 	private IcDocumentTypeEnum documentType;
 
 	@OneToMany(mappedBy = "icDocument")
