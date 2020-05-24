@@ -27,6 +27,7 @@ import com.pointtomap.iclassify.ICConstant;
 import com.pointtomap.iclassify.ICEnvironment;
 import com.pointtomap.iclassify.ICUserSession;
 import com.pointtomap.iclassify.form.FileUploadForm;
+import com.pointtomap.iclassify.form.UploadedFile;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDocumentDao;
@@ -121,14 +122,14 @@ public class DocumemtController extends IClassifyController {
 
 		try {
 
-			List<byte[]> fileList = getMultipleFiles(uploadForm);
+			List<UploadedFile> fileList = getMultipleFiles(uploadForm);
 
 			ICUserSession userSession = getUserSession(request);
 			IcUser user = userSession.getUser();
 
-			for (byte[] fileByteArray : fileList) {
+			for (UploadedFile uploadedFile : fileList) {
 
-				String filenameHash = HashUtil.sha256(fileByteArray) + ".dcs";
+				String filenameHash = HashUtil.sha256(uploadedFile.getFileByteArray()) + ".dcs";
 				log.debug(String.format("Loading file: %s", filenameHash));
 
 				// Check if file already exists
@@ -142,11 +143,12 @@ public class DocumemtController extends IClassifyController {
 				if (isDocumentNotExist) {
 
 					File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
-					FileCopyUtils.copy(fileByteArray, f);
+					FileCopyUtils.copy(uploadedFile.getFileByteArray(), f);
 
 					IcDocument aDocument = new IcDocument();
 					aDocument.setDocumentSha1(filenameHash);
 					aDocument.setDescription("");
+					aDocument.setDocumentType(uploadedFile.getDocumentType());
 
 					icDocumentDao.persist(aDocument);
 
@@ -186,11 +188,11 @@ public class DocumemtController extends IClassifyController {
 
 	}
 
-	private List<byte[]> getMultipleFiles(FileUploadForm uploadForm) throws Exception {
+	private List<UploadedFile> getMultipleFiles(FileUploadForm uploadForm) throws Exception {
 
 		List<MultipartFile> multipartFileList = uploadForm.getFileselect();
 
-		List<byte[]> fileList = new ArrayList<byte[]>();
+		List<UploadedFile> fileList = new ArrayList<UploadedFile>();
 
 		if (null != multipartFileList && multipartFileList.size() > 0) {
 
@@ -204,7 +206,9 @@ public class DocumemtController extends IClassifyController {
 
 					byte[] fileByte = multipartFile.getBytes();
 
-					fileList.add(fileByte);
+					UploadedFile uploadFile = new UploadedFile(fileByte, fileName);
+
+					fileList.add(uploadFile);
 
 				}
 
