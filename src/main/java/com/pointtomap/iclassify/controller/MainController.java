@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pointtomap.iclassify.IC;
-import com.pointtomap.iclassify.ICUserSession;
 import com.pointtomap.iclassify.ICEnvironment;
+import com.pointtomap.iclassify.ICUserSession;
 import com.pointtomap.iclassify.form.MainControllerForm;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDocumentDao;
-import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
+import com.pointtomap.iclassify.jpa.orm.UserGroupEnum;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 
 /**
@@ -171,7 +171,7 @@ public class MainController extends IClassifyController {
 			aUser.setUsername("admin");
 			aUser.setEmailAddress("as87321234@gmail.com");
 			aUser.setHashedPasswd("Password1");
-			aUser.setUserGroup(EnumUserGroup.ADMIN);
+			aUser.setUserGroup(UserGroupEnum.ADMIN);
 
 			icUserDao.persist(aUser);
 
@@ -186,7 +186,9 @@ public class MainController extends IClassifyController {
 			aUser.setUsername("sb87321234");
 			aUser.setEmailAddress("sb87321234@gmail.com");
 			aUser.setHashedPasswd("p");
-			aUser.setUserGroup(EnumUserGroup.READ_WRITE);
+			aUser.setFirstName("Sonia");
+			aUser.setLastName("Begin");
+			aUser.setUserGroup(UserGroupEnum.READ_WRITE);
 
 			icUserDao.persist(aUser);
 		} else {
@@ -198,7 +200,9 @@ public class MainController extends IClassifyController {
 			aUser.setUsername("as87321234");
 			aUser.setEmailAddress("as87321234@gmail.com");
 			aUser.setHashedPasswd("a");
-			aUser.setUserGroup(EnumUserGroup.READ_WRITE);
+			aUser.setFirstName("Andre");
+			aUser.setLastName("St-Louis");
+			aUser.setUserGroup(UserGroupEnum.READ_WRITE);
 
 			icUserDao.persist(aUser);
 
