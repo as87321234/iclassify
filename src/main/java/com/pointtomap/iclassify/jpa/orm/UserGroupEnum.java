@@ -1,6 +1,6 @@
 package com.pointtomap.iclassify.jpa.orm;
 
-public enum EnumUserGroup {
+public enum UserGroupEnum {
 
 	ADMIN, READ_WRITE, READ_ONLY
 }

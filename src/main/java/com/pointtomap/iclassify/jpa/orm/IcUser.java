@@ -71,7 +71,7 @@ public class IcUser extends IcEntity implements Serializable {
 
 	private String hashedPasswd = UUID.randomUUID().toString();
 
-	private EnumUserGroup userGroup = EnumUserGroup.READ_ONLY;
+	private UserGroupEnum userGroup = UserGroupEnum.READ_ONLY;
 
 	@OneToMany(mappedBy = "icUser")
 	Set<IcUserDocument> icUserDocuments;
@@ -124,11 +124,11 @@ public class IcUser extends IcEntity implements Serializable {
 		this.hashedPasswd = HashUtil.sha256(password);
 	}
 
-	public EnumUserGroup getUserGroup() {
+	public UserGroupEnum getUserGroup() {
 		return userGroup;
 	}
 
-	public void setUserGroup(EnumUserGroup userGroup) {
+	public void setUserGroup(UserGroupEnum userGroup) {
 		this.userGroup = userGroup;
 	}
 
