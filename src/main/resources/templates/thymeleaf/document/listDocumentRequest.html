@@ -22,6 +22,7 @@
 					<tr>
 						<th>Document SHA1</th>	
 						<th>Description</th>	
+						<th>Document Type</th>	
 						<th>Action</th>	
 					</tr>
 				</thead>
@@ -32,6 +33,7 @@
 					<tr th:each="document : ${documentList}">
 						<td><span th:text="${document.documentSha1}"> Document SHA1 </span></td>
 						<td><span th:text="${document.description}"> Description </span></td>
+						<td><span th:text="${document.documentType}"> Document Type </span></td>
 						<td><i class="fas fa-edit fa-sm"></i><i class="fas fa-trash fa-sm"></i><span th:text="${document.documentId}"></td>
 					</tr>
 				</tbody>
