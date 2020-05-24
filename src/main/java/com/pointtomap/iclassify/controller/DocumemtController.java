@@ -142,14 +142,14 @@ public class DocumemtController extends IClassifyController {
 
 				if (isDocumentNotExist) {
 
-					File f = new File(env.getDcsDirectory() + "\\" + filenameHash);
+					File f = new File(env.getDcsDirectory() + File.separator + filenameHash);
 					FileCopyUtils.copy(uploadedFile.getFileByteArray(), f);
 
 					IcDocument aDocument = new IcDocument();
 					aDocument.setDocumentSha1(filenameHash);
 					aDocument.setDescription("");
 					aDocument.setDocumentType(uploadedFile.getDocumentType());
-
+					aDocument.setOriginalFilename(uploadedFile.getFilename());
 					icDocumentDao.persist(aDocument);
 
 					IcUserDocument aUserDocument = new IcUserDocument();

@@ -42,7 +42,7 @@ public class UploadedFile
 
 		if (filenameTokens.length > 1 && fileExtension.length() <= 4) {
 
-			return fileExtension;
+			return fileExtension.toUpperCase();
 
 		}
 
