@@ -156,6 +156,7 @@ public class IcEntity {
 
 					if (o instanceof List) {
 
+						@SuppressWarnings("unchecked")
 						final List<String> list = (List<String>) o;
 
 						final List<String> trimmedList = new ArrayList<String>();

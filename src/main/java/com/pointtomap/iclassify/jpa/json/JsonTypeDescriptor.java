@@ -7,20 +7,27 @@ import org.hibernate.type.descriptor.java.AbstractTypeDescriptor;
 import org.hibernate.type.descriptor.java.MutableMutabilityPlan;
 import org.hibernate.usertype.DynamicParameterizedType;
 
-public class JsonTypeDescriptor extends AbstractTypeDescriptor<Object>
-		implements DynamicParameterizedType {
+public class JsonTypeDescriptor extends AbstractTypeDescriptor<Object> implements DynamicParameterizedType {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Class<?> jsonObjectClass;
 
 	@Override
 	public void setParameterValues(Properties parameters) {
-		jsonObjectClass = ((ParameterType) parameters.get(PARAMETER_TYPE))
-				.getReturnedClass();
+		jsonObjectClass = ((ParameterType) parameters.get(PARAMETER_TYPE)).getReturnedClass();
 
 	}
 
 	public JsonTypeDescriptor() {
 		super(Object.class, new MutableMutabilityPlan<Object>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected Object deepCopyNotNull(Object value) {
 				return JacksonUtil.clone(value);
@@ -36,8 +43,8 @@ public class JsonTypeDescriptor extends AbstractTypeDescriptor<Object>
 		if (one == null || another == null) {
 			return false;
 		}
-		return JacksonUtil.toJsonNode(JacksonUtil.toString(one)).equals(
-				JacksonUtil.toJsonNode(JacksonUtil.toString(another)));
+		return JacksonUtil.toJsonNode(JacksonUtil.toString(one))
+				.equals(JacksonUtil.toJsonNode(JacksonUtil.toString(another)));
 	}
 
 	@Override

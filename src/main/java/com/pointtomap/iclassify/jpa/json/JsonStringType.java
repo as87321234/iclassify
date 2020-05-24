@@ -5,9 +5,12 @@ import java.util.Properties;
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.usertype.DynamicParameterizedType;
 
-public class JsonStringType extends
-		AbstractSingleColumnStandardBasicType<Object> implements
-		DynamicParameterizedType {
+public class JsonStringType extends AbstractSingleColumnStandardBasicType<Object> implements DynamicParameterizedType {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public JsonStringType() {
 		super(JsonStringSqlTypeDescriptor.INSTANCE, new JsonTypeDescriptor());
@@ -25,8 +28,7 @@ public class JsonStringType extends
 
 	@Override
 	public void setParameterValues(Properties parameters) {
-		((JsonTypeDescriptor) getJavaTypeDescriptor())
-				.setParameterValues(parameters);
+		((JsonTypeDescriptor) getJavaTypeDescriptor()).setParameterValues(parameters);
 	}
 
 }

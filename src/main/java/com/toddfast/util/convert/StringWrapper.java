@@ -8,7 +8,7 @@ public class StringWrapper {
 
 	public StringWrapper(String value) {
 		super();
-		this.value=value;
+		this.value = value;
 	}
 
 	public String toString() {
@@ -16,7 +16,7 @@ public class StringWrapper {
 	}
 
 	public static String getWrappedString(String value) {
-		return "Wrapped value \""+value+"\"";
+		return "Wrapped value \"" + value + "\"";
 	}
 
 	public static class TypeConversion implements TypeConverter.Conversion {

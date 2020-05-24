@@ -19,8 +19,8 @@ public class JacksonUtil {
 				return OBJECT_MAPPER.readValue(string, clazz);
 			}
 		} catch (final IOException e) {
-			throw new IllegalArgumentException("The given string value: "
-					+ string + " cannot be transformed to Json object");
+			throw new IllegalArgumentException(
+					"The given string value: " + string + " cannot be transformed to Json object");
 		}
 	}
 
@@ -32,8 +32,8 @@ public class JacksonUtil {
 				return OBJECT_MAPPER.writeValueAsString(value);
 			}
 		} catch (final IOException e) {
-			throw new IllegalArgumentException("The given Json object value: "
-					+ value + " cannot be transformed to a String");
+			throw new IllegalArgumentException(
+					"The given Json object value: " + value + " cannot be transformed to a String");
 		}
 	}
 
@@ -49,6 +49,7 @@ public class JacksonUtil {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T> T clone(final T value) {
 		return fromString(toString(value), (Class<T>) value.getClass());
 	}
