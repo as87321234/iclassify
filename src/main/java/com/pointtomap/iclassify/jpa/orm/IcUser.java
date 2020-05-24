@@ -69,6 +69,10 @@ public class IcUser extends IcEntity implements Serializable {
 
 	private String username;
 
+	private String firstName;
+
+	private String lastName;
+
 	private String hashedPasswd = UUID.randomUUID().toString();
 
 	private UserGroupEnum userGroup = UserGroupEnum.READ_ONLY;
@@ -138,6 +142,22 @@ public class IcUser extends IcEntity implements Serializable {
 
 	public void setIcUserDocuments(Set<IcUserDocument> icUserDocuments) {
 		this.icUserDocuments = icUserDocuments;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }
