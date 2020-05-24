@@ -69,6 +69,8 @@ public class IcDocument extends IcEntity implements Serializable {
 
 	private String documentSha1;
 
+	private IcDocumentTypeEnum documentType;
+
 	@OneToMany(mappedBy = "icDocument")
 	Set<IcUserDocument> icUserDocuments;
 
@@ -110,6 +112,14 @@ public class IcDocument extends IcEntity implements Serializable {
 
 	public void setIcUserDocuments(Set<IcUserDocument> icUserDocuments) {
 		this.icUserDocuments = icUserDocuments;
+	}
+
+	public IcDocumentTypeEnum getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(IcDocumentTypeEnum documentType) {
+		this.documentType = documentType;
 	}
 
 }
