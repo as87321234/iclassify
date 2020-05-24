@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
+import com.pointtomap.iclassify.jpa.orm.UserGroupEnum;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 
 public class ICUserSession {
@@ -40,7 +40,7 @@ public class ICUserSession {
 
 	public boolean isAdmin() {
 
-		if (user.getUserGroup() == EnumUserGroup.ADMIN) {
+		if (user.getUserGroup() == UserGroupEnum.ADMIN) {
 			return true;
 		}
 

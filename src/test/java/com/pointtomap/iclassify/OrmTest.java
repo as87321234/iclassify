@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pointtomap.iclassify.jpa.dao.IcDocumentDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDao;
 import com.pointtomap.iclassify.jpa.dao.IcUserDocumentDao;
-import com.pointtomap.iclassify.jpa.orm.EnumUserGroup;
+import com.pointtomap.iclassify.jpa.orm.UserGroupEnum;
 import com.pointtomap.iclassify.jpa.orm.IcDocument;
 import com.pointtomap.iclassify.jpa.orm.IcUser;
 import com.pointtomap.iclassify.jpa.orm.IcUserDocument;
@@ -39,7 +39,7 @@ class OrmTest {
 		aUser.setEmailAddress("sb87321234@gmail.com");
 		aUser.setEnabled(true);
 		aUser.setHashedPasswd("Password1");
-		aUser.setUserGroup(EnumUserGroup.ADMIN);
+		aUser.setUserGroup(UserGroupEnum.ADMIN);
 		aUser.setUsername("sb87321234");
 
 		icUserDao.persist(aUser);
