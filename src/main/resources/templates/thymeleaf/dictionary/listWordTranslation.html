@@ -1,0 +1,52 @@
+<!-- list.html -->
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/base :: baseHead(~{::title}, ~{::link})">
+<meta charset="ISO-8859-1" />
+
+<link href="/css/styles.css" rel="stylesheet" />
+
+<title>iClassify - DCS</title>
+</head>
+
+<body> 
+
+	<div align="center">
+
+		<div th:replace="fragments/header :: header"></div>
+
+		<div class="header">
+
+			<table class="blueTable" style="border: 1px">
+				<thead>
+					<tr>	
+						<th>Default Language</th>	
+						<th>French</th>	
+						<th>Spanish Type</th>	
+						<th>English</th>	
+						<th>Action</th>	
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${wordTranslationList.empty}">
+						<td colspan="3">No document available</td>
+					</tr>
+					<tr th:each="document : ${wordTranslationList}">
+						<td><span th:text="${wordTranslationList.defaultLanguage}"> Default Language </span></td>
+						<td><span th:text="${wordTranslationList.french}"> French </span></td>
+						<td><span th:text="${wordTranslationList.spanish}"> Spanish </span></td>
+						<td><span th:text="${wordTranslationList.english}"> English </span></td>
+						<td><i class="fas fa-globe fa-sm"></i> <i class="fas fa-edit fa-sm"></i><i class="fas fa-trash fa-sm"></i><!-- <span th:text="${document.documentId}"> --></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+
+</html>
