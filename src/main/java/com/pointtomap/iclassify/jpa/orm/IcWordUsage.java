@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -60,9 +62,13 @@ public class IcWordUsage extends IcEntity implements Serializable {
 	@Column(name = "word_usage_id", updatable = false, nullable = false)
 	private UUID wordUsageId;
 
+	@ManyToOne
+	@JoinColumn(name = "word_translation_id")
+	private IcWordTranslation icWordTranslation;
+
 	private IcWordUsageTypeEnum wordUsageTypeEnum;
 
-	private String exmaple;
+	private String usageExample;
 
 	public IcWordUsage() {
 	}
@@ -70,6 +76,22 @@ public class IcWordUsage extends IcEntity implements Serializable {
 	public IcWordUsage(final IcWordUsage wordUsageId) {
 
 		ReflectionUtils.cloneSkipNull(wordUsageId, this, null);
+	}
+
+	public IcWordUsageTypeEnum getWordUsageTypeEnum() {
+		return wordUsageTypeEnum;
+	}
+
+	public void setWordUsageTypeEnum(IcWordUsageTypeEnum wordUsageTypeEnum) {
+		this.wordUsageTypeEnum = wordUsageTypeEnum;
+	}
+
+	public String getUsageExample() {
+		return usageExample;
+	}
+
+	public void setUsageExample(String usageExample) {
+		this.usageExample = usageExample;
 	}
 
 }

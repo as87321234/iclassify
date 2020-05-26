@@ -27,6 +27,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "ic_word_translation")
 @EnableJpaRepositories
+
 @NamedQueries({
 
 		@NamedQuery(name = IcWordTranslation.FIND_ALL, query = "SELECT e FROM IcWordTranslation e")
@@ -62,15 +63,16 @@ public class IcWordTranslation extends IcEntity implements Serializable {
 	@Column(name = "word_translation_id", updatable = false, nullable = false)
 	private UUID wordTranslationId;
 
-	private String defaultLanguage;
-
 	private String french;
+	private String frenchPhonetic;
 
-	private String spannish;
+	private String spanish;
+	private String spanishPhonetic;
 
 	private String english;
+	private String englishPhonetic;
 
-	@OneToMany(mappedBy = "IcWordUsage")
+	@OneToMany(mappedBy = "icWordTranslation")
 	Set<IcWordUsage> icWordUsage;
 
 	public IcWordTranslation() {
@@ -79,6 +81,70 @@ public class IcWordTranslation extends IcEntity implements Serializable {
 	public IcWordTranslation(final IcWordTranslation icWordTranslation) {
 
 		ReflectionUtils.cloneSkipNull(icWordTranslation, this, null);
+	}
+
+	public UUID getWordTranslationId() {
+		return wordTranslationId;
+	}
+
+	public String getFrench() {
+		return french;
+	}
+
+	public String getFrenchPhonetic() {
+		return frenchPhonetic;
+	}
+
+	public String getSpanish() {
+		return spanish;
+	}
+
+	public String getSpanishPhonetic() {
+		return spanishPhonetic;
+	}
+
+	public String getEnglish() {
+		return english;
+	}
+
+	public String getEnglishPhonetic() {
+		return englishPhonetic;
+	}
+
+	public Set<IcWordUsage> getIcWordUsage() {
+		return icWordUsage;
+	}
+
+	public void setWordTranslationId(UUID wordTranslationId) {
+		this.wordTranslationId = wordTranslationId;
+	}
+
+	public void setFrench(String french) {
+		this.french = french;
+	}
+
+	public void setFrenchPhonetic(String frenchPhonetic) {
+		this.frenchPhonetic = frenchPhonetic;
+	}
+
+	public void setSpanish(String spanish) {
+		this.spanish = spanish;
+	}
+
+	public void setSpanishPhonetic(String spanishPhonetic) {
+		this.spanishPhonetic = spanishPhonetic;
+	}
+
+	public void setEnglish(String english) {
+		this.english = english;
+	}
+
+	public void setEnglishPhonetic(String englishPhonetic) {
+		this.englishPhonetic = englishPhonetic;
+	}
+
+	public void setIcWordUsage(Set<IcWordUsage> icWordUsage) {
+		this.icWordUsage = icWordUsage;
 	}
 
 }
